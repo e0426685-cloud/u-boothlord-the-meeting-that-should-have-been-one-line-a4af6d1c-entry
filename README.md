@@ -13,8 +13,12 @@
 
 `main.py` (stdlib only) writes the single sentence above to `/output/entry.txt`
 using plain `open()` plus an explicit `os.chmod(path, 0o644)`. A `validate()`
-function checks the line is non-blank and 1–200 characters, raising
-`ValueError` otherwise.
+function checks the line is non-blank, 1–200 characters, free of embedded
+newlines or carriage returns, and without leading or trailing whitespace,
+raising `ValueError` otherwise — so the file can never silently hold two
+lines. Run `python3 main.py --check` to run the built-in self-test, which
+exercises `validate()` against twelve good and bad cases (including the
+real entry line) and exits non-zero on any failure.
 
 ## How to run
 
